@@ -1,5 +1,7 @@
-import { ComponentExample } from "@/components/component-example";
+import { UserButton } from "@clerk/nextjs";
 
 export default function Page() {
-return <ComponentExample />;
+return <div className="min-h-screen flex justify-center items-center">
+  <UserButton />
+</div>;
 }
