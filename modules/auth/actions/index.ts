@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/db" 
 import { currentUser } from "@clerk/nextjs/server"
+import { toast } from "sonner";
 
 export async function onBoardUser() {
   try {
@@ -43,4 +44,17 @@ export async function onBoardUser() {
       error: "Failed to onboard user!"
     }
   }
+}
+
+export async function currentUserRole() {
+  const user = await currentUser();
+  
+  if (!user) return null
+  
+  const userRole = await prisma.user.findUnique({
+    where: { clerkId: user?.id },
+    select: { role: true },
+  });
+
+  return userRole?.role ?? null
 }
